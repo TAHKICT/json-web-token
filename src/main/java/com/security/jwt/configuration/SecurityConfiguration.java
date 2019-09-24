@@ -24,13 +24,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and()
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/api/public").permitAll()
+            .antMatchers("/api/public", "/api/public/*").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
             .addFilter(new JwtAuthorizationFilter(authenticationManager()))
             .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+//          Spring Security XSS protection
+            .and().headers().xssProtection().block(true);
     }
 
     @Override
