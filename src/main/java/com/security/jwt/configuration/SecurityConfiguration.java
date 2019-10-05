@@ -30,10 +30,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
             .addFilter(new JwtAuthorizationFilter(authenticationManager()))
             .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-//          Spring Security XSS protection
-            .and().headers().xssProtection().block(true);
+//          Spring Security XSS protection with 'X-XSS-Protection' header
+//            .and().headers().xssProtection().block(true)
+
+//          Spring Security XSS protection with 'X-XSS-Protection' header
+//            .and().contentSecurityPolicy("script-src 'self'
+//            https://trustedscripts.example.com;
+//            object-src https://trustedplugins.example.com;
+//            report-uri /csp-report-endpoint/");
     }
 
     @Override

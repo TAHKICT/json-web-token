@@ -21,6 +21,12 @@ public class PublicController {
         return StringEscapeUtils.escapeHtml4(content);
     }
 
+
+    @GetMapping ("/test")
+    public String getMessageTest() {
+        return StringEscapeUtils.escapeHtml4(content);
+    }
+
     /**
      * API endpoint example in scope of 'XSS injection' topic: content without escaping
      * @return
@@ -36,6 +42,7 @@ public class PublicController {
      */
     @GetMapping("/escape")
     public String getMessageNoEscape() {
+        System.out.println(StringEscapeUtils.escapeHtml4(content + " " + xss));
         return StringEscapeUtils.escapeHtml4(content + " " + xss);
     }
 

@@ -7,15 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 @RestController
-@RequestMapping("/api/private")
-public class PrivateController {
+@RequestMapping("/api/validate")
+public class AuthenticationController {
 
     @GetMapping
-    public String getMessage(HttpServletRequest request) {
-        System.out.println("Private call");
-        return "Hello from private API controller";
+    public ResponseEntity validate(HttpServletRequest request) {
+        System.out.println("Validation request.");
+        if (request.getHeader("My-Custom-Validation-Header") == null)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
